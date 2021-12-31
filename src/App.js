@@ -67,7 +67,7 @@ function App() {
       <div className="container">
         {/* only single element can be returned*/}
 
-        <Header title='Task Tracker'
+        <Header title="Task Tracker"
           onAdd={() => setShowAddTask(!showAddTask)}
           showAdd={showAddTask}>
         </Header>

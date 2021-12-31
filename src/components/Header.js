@@ -12,7 +12,7 @@ const Header = ({ title, onAdd, showAdd }) => {
 
     return (
         <header className='header'>
-            <h1 style={headingStyle}>{title}</h1>
+            <h1 style={headingStyle}>{title} ✅</h1>
             {location.pathname === '/' && (<Button color={showAdd ? 'red' : 'yellow'}
                 text={showAdd ? 'Close' : 'Add'}
                 onClick={onAdd}
@@ -31,7 +31,7 @@ Header.propTypes = {
 
 const headingStyle = {
     color: 'white',
-    backgroundColor: 'blue',
+    backgroundColor: 'purple',
 }
 
 export default Header
