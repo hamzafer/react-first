@@ -2,6 +2,10 @@ import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import { useState } from 'react'
 import AddTask from "./components/AddTask";
+import Footer from "./components/Footer";
+import About from "./components/About";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import TaskDetails from "./components/TaskDetails";
 
 //styles components popular
 function App() {
@@ -14,21 +18,24 @@ function App() {
     [
       {
         id: 1,
-        text: '1',
-        day: '1',
+        text: 'Walk',
+        day: 'Saturday',
         reminder: false,
+        details: 'Burn 500 Calories'
       },
       {
         id: 2,
-        text: '2',
-        day: '2',
+        text: 'Cheat Day',
+        day: 'Sunday',
         reminder: false,
+        details: 'Burger/Pizza'
       },
       {
         id: 3,
-        text: '3',
-        day: '3',
+        text: 'Cancel Subscription',
+        day: 'Wednesday',
         reminder: false,
+        details: 'Slides go presentation'
       },
     ]
   )
@@ -56,22 +63,40 @@ function App() {
 
   //not html its JSX - dynamic JS expressions
   return (
-    <div className="container">
-      {/* only single element can be returned*/}
-      <Header title='Task Tracker'
-      onAdd={() => setShowAddTask(!showAddTask)}
-      showAdd={showAddTask}
-      ></Header>
-      {showAddTask && <AddTask onAdd={addTask}></AddTask>}
-      {tasks.length > 0 ?
-        (
-          <Tasks tasks={tasks} onDelete={deleteTask}
-            onToggle={toggleReminder}></Tasks>
-        )
-        :
-        ('No Tasks !')
-      }
-    </div>
+    <Router>
+      <div className="container">
+        {/* only single element can be returned*/}
+
+        <Header title='Task Tracker'
+          onAdd={() => setShowAddTask(!showAddTask)}
+          showAdd={showAddTask}>
+        </Header>
+        <Routes>
+          <Route path='/' element={
+            <>
+              {showAddTask && <AddTask onAdd={addTask}></AddTask>}
+
+              {tasks.length > 0 ?
+                (
+                  <Tasks tasks={tasks} onDelete={deleteTask}
+                    onToggle={toggleReminder}></Tasks>
+                )
+                :
+                ('No Tasks !')
+              }
+            </>
+          }></Route>
+
+          <Route path='/about' element={<About></About>}></Route>
+          
+          <Route path='/task/:id' element={<TaskDetails
+          tasks={tasks}
+          >
+          </TaskDetails>}></Route>
+        </Routes>
+        <Footer></Footer>
+      </div>
+    </Router>
   );
 }
 
